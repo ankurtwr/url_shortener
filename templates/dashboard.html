@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Snip{% endblock %}
+
+{% block content %}
+<section class="dashboard-section" id="dashboard-section">
+    <div class="dashboard-header">
+        <div>
+            <h1 class="page-title" id="dashboard-title">Dashboard</h1>
+            <p class="page-subtitle">All your shortened links and their stats.</p>
+        </div>
+        <div class="dashboard-stats" id="dashboard-stats">
+            <div class="stat-card">
+                <span class="stat-value" id="stat-total">{{ urls.total if urls else 0 }}</span>
+                <span class="stat-label">Total Links</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="stat-clicks">
+                    {% set total_clicks = urls.items | sum(attribute='click_count') if urls and urls.items else 0 %}
+                    {{ total_clicks }}
+                </span>
+                <span class="stat-label">Total Clicks</span>
+            </div>
+        </div>
+    </div>
+
+    {% if urls and urls.items %}
+    <div class="table-wrapper" id="urls-table-wrapper">
+        <table class="data-table" id="urls-table">
+            <thead>
+                <tr>
+                    <th>Short Link</th>
+                    <th>Original URL</th>
+                    <th>Clicks</th>
+                    <th>Created</th>
+                    <th>Expires</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="urls-table-body">
+                {% for url in urls.items %}
+                <tr class="table-row {% if url.is_expired %}row-expired{% endif %}" id="url-row-{{ url.id }}">
+                    <td class="cell-short-link">
+                        <div class="short-link-group">
+                            <a href="/{{ url.short_code }}" class="short-link" target="_blank" id="link-{{ url.id }}">
+                                /{{ url.short_code }}
+                            </a>
+                            {% if url.is_custom %}
+                            <span class="badge badge-custom">custom</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="cell-original">
+                        <span class="original-url" title="{{ url.original_url }}">
+                            {{ url.original_url[:60] }}{% if url.original_url|length > 60 %}...{% endif %}
+                        </span>
+                    </td>
+                    <td class="cell-clicks">
+                        <span class="click-count">{{ url.click_count }}</span>
+                    </td>
+                    <td class="cell-date">
+                        {{ url.created_at.strftime('%b %d, %Y') if url.created_at else '—' }}
+                    </td>
+                    <td class="cell-date">
+                        {% if url.expires_at %}
+                            {{ url.expires_at.strftime('%b %d, %Y') }}
+                        {% else %}
+                            <span class="text-muted">Never</span>
+                        {% endif %}
+                    </td>
+                    <td class="cell-status">
+                        {% if url.is_expired %}
+                            <span class="badge badge-expired">Expired</span>
+                        {% else %}
+                            <span class="badge badge-active">Active</span>
+                        {% endif %}
+                    </td>
+                    <td class="cell-actions">
+                        <button class="btn-icon btn-delete" data-id="{{ url.id }}" title="Delete" id="delete-{{ url.id }}">
+                            ✕
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if urls.pages > 1 %}
+    <div class="pagination" id="pagination">
+        {% if urls.has_prev %}
+        <a href="{{ url_for('main.dashboard', page=urls.prev_num) }}" class="btn btn-ghost btn-sm" id="prev-page">← Previous</a>
+        {% endif %}
+
+        <span class="page-info">Page {{ urls.page }} of {{ urls.pages }}</span>
+
+        {% if urls.has_next %}
+        <a href="{{ url_for('main.dashboard', page=urls.next_num) }}" class="btn btn-ghost btn-sm" id="next-page">Next →</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="empty-dashboard" id="empty-dashboard">
+        <div class="empty-icon">🔗</div>
+        <h2>No links yet</h2>
+        <p>Head over to the home page and shorten your first URL.</p>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary" id="go-home-btn">Create a link</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

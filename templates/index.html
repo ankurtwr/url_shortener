@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Snip — Shorten Any URL Instantly{% endblock %}
+
+{% block content %}
+<section class="hero" id="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title" id="hero-title">
+            Make every link
+            <span class="hero-highlight">count.</span>
+        </h1>
+        <p class="hero-subtitle" id="hero-subtitle">
+            Paste a long URL and get a clean, shareable short link in seconds.
+            Track clicks. Set expiry. Use your own custom alias.
+        </p>
+    </div>
+
+    <!-- URL Shortener Form -->
+    <div class="shorten-card" id="shorten-card">
+        <form id="shorten-form" class="shorten-form">
+            <!-- URL Input -->
+            <div class="input-row">
+                <div class="input-wrapper" id="url-input-wrapper">
+                    <label for="url-input" class="input-label">Your long URL</label>
+                    <input
+                        type="text"
+                        id="url-input"
+                        name="url"
+                        class="input-field"
+                        placeholder="https://example.com/very/long/url/that/needs/shortening"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary" id="shorten-btn">
+                    <span class="btn-text">Shorten</span>
+                    <span class="btn-loader" hidden>
+                        <span class="spinner"></span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Options Row -->
+            <div class="options-row" id="options-row">
+                <!-- Custom Code -->
+                <div class="option-group">
+                    <label for="custom-code-input" class="option-label">Custom alias (optional)</label>
+                    <div class="custom-code-wrapper">
+                        <span class="code-prefix">yoursite.com/</span>
+                        <input
+                            type="text"
+                            id="custom-code-input"
+                            name="custom_code"
+                            class="input-field input-small"
+                            placeholder="my-link"
+                            maxlength="30"
+                        >
+                    </div>
+                </div>
+
+                <!-- Expiry -->
+                <div class="option-group">
+                    <label for="expiry-select" class="option-label">Link expires in</label>
+                    <select id="expiry-select" name="expiry" class="input-field input-select">
+                        <option value="never">Never</option>
+                        <option value="1h">1 hour</option>
+                        <option value="24h">24 hours</option>
+                        <option value="7d">7 days</option>
+                        <option value="30d">30 days</option>
+                        <option value="90d">90 days</option>
+                        <option value="custom">Custom date...</option>
+                    </select>
+                </div>
+
+                <!-- Custom Date (hidden by default) -->
+                <div class="option-group custom-date-group" id="custom-date-group" hidden>
+                    <label for="custom-expiry-input" class="option-label">Expires on</label>
+                    <input
+                        type="datetime-local"
+                        id="custom-expiry-input"
+                        name="custom_expiry"
+                        class="input-field input-small"
+                    >
+                </div>
+            </div>
+        </form>
+
+        <!-- Error Message -->
+        <div class="message message-error" id="error-message" hidden>
+            <span class="message-icon">✕</span>
+            <span class="message-text" id="error-text"></span>
+        </div>
+    </div>
+
+    <!-- Result Card (appears after shortening) -->
+    <div class="result-card" id="result-card" hidden>
+        <div class="result-header">
+            <span class="result-badge">✓ Link created</span>
+            <span class="result-expiry" id="result-expiry"></span>
+        </div>
+        <div class="result-body">
+            <div class="result-url-group">
+                <input
+                    type="text"
+                    class="result-url"
+                    id="result-url"
+                    readonly
+                >
+                <button class="btn btn-copy" id="copy-btn" data-tooltip="Copy">
+                    <span class="copy-icon" id="copy-icon">⧉</span>
+                    <span class="copy-text" id="copy-text">Copy</span>
+                </button>
+            </div>
+            <p class="result-original" id="result-original"></p>
+        </div>
+        <button class="btn btn-ghost" id="shorten-another-btn">Shorten another</button>
+    </div>
+</section>
+
+<!-- Recent Links -->
+<section class="recent-section" id="recent-section">
+    <h2 class="section-title">Recent links</h2>
+    <div class="recent-list" id="recent-list">
+        <p class="empty-state" id="empty-state">No links shortened yet. Try one above!</p>
+    </div>
+</section>
+{% endblock %}
