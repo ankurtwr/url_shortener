@@ -246,19 +246,19 @@ function loadRecentLinks() {
     const recent = JSON.parse(localStorage.getItem('snip-recent') || '[]');
 
     if (recent.length === 0) {
-        container.innerHTML = '<p class="empty-state" id="empty-state">No links shortened yet. Try one above!</p>';
+        container.innerHTML = '<p class="text-center py-8 text-brand-text-tertiary text-sm" id="empty-state">No links shortened yet. Try one above!</p>';
         return;
     }
 
     container.innerHTML = recent.map((item, i) => `
-        <div class="recent-item" style="animation-delay: ${i * 0.04}s">
-            <div class="recent-item-left">
-                <a href="${item.short_url}" class="recent-short" target="_blank">${item.short_url}</a>
-                <span class="recent-original">${item.original_url}</span>
+        <div class="flex items-center justify-between p-3 bg-brand-bg-card border border-brand-border-subtle rounded-[12px] transition-all duration-150 animate-fade-in-up hover:bg-brand-bg-card-hover hover:border-brand-border-default max-sm:flex-col max-sm:items-start max-sm:gap-2" style="animation-delay: ${i * 0.04}s; animation-fill-mode: both;">
+            <div class="flex flex-col gap-0.5 min-w-0 flex-1">
+                <a href="${item.short_url}" class="font-mono text-[0.88rem] font-medium text-brand-accent hover:underline" target="_blank">${item.short_url}</a>
+                <span class="text-[0.78rem] text-brand-text-tertiary overflow-hidden text-ellipsis whitespace-nowrap">${item.original_url}</span>
             </div>
-            <div class="recent-item-right">
-                <span class="recent-clicks">${item.expires_at !== 'Never' ? item.expires_at : '∞'}</span>
-                <button class="btn-copy-sm" onclick="copyToClipboard('${item.short_url}', this)" title="Copy">⧉</button>
+            <div class="flex items-center gap-2 flex-shrink-0 ml-4 max-sm:ml-0 max-sm:w-full max-sm:justify-between">
+                <span class="text-[0.78rem] text-brand-text-tertiary whitespace-nowrap">${item.expires_at !== 'Never' ? item.expires_at : '∞'}</span>
+                <button class="inline-flex items-center justify-center w-8 h-8 bg-brand-accent-soft text-brand-accent border-none rounded-sm text-[0.85rem] cursor-pointer transition-all duration-150 hover:bg-brand-accent hover:text-white btn-copy-sm" onclick="copyToClipboard('${item.short_url}', this)" title="Copy">⧉</button>
             </div>
         </div>
     `).join('');

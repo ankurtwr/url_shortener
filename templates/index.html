@@ -2,55 +2,55 @@
 {% block title %}Snip — Shorten Any URL Instantly{% endblock %}
 
 {% block content %}
-<section class="hero" id="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title" id="hero-title">
+<section class="max-w-[700px] mx-auto pt-16 pb-8 px-6" id="hero-section">
+    <div class="text-center mb-10">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight leading-none mb-3 animate-fade-in-up" id="hero-title">
             Make every link
             <span class="hero-highlight">count.</span>
         </h1>
-        <p class="hero-subtitle" id="hero-subtitle">
+        <p class="text-[1.05rem] text-brand-text-secondary max-w-[480px] mx-auto leading-relaxed animate-fade-in-up [animation-delay:0.08s]" id="hero-subtitle">
             Paste a long URL and get a clean, shareable short link in seconds.
             Track clicks. Set expiry. Use your own custom alias.
         </p>
     </div>
 
     <!-- URL Shortener Form -->
-    <div class="shorten-card" id="shorten-card">
-        <form id="shorten-form" class="shorten-form">
+    <div class="bg-brand-bg-card backdrop-blur-md border border-brand-border-subtle rounded-[18px] p-7 shadow-brand-md shadow-brand-glow animate-fade-in-up [animation-delay:0.14s] transition-all duration-400" id="shorten-card">
+        <form id="shorten-form" class="flex flex-col gap-5">
             <!-- URL Input -->
-            <div class="input-row">
-                <div class="input-wrapper" id="url-input-wrapper">
-                    <label for="url-input" class="input-label">Your long URL</label>
+            <div class="flex gap-3 items-end max-sm:flex-col max-sm:items-stretch">
+                <div class="flex-grow flex-shrink min-w-0" id="url-input-wrapper">
+                    <label for="url-input" class="block text-xs font-semibold text-brand-text-secondary uppercase tracking-wider mb-1.5">Your long URL</label>
                     <input
                         type="text"
                         id="url-input"
                         name="url"
-                        class="input-field"
+                        class="w-full py-[0.7rem] px-4 bg-brand-bg-input border border-brand-border-default rounded-[12px] text-brand-text-primary font-sans text-[0.95rem] transition-all duration-150 outline-none placeholder-brand-text-tertiary focus:bg-brand-bg-input-focus focus:border-brand-border-focus focus:ring-3 focus:ring-brand-accent-soft"
                         placeholder="https://example.com/very/long/url/that/needs/shortening"
                         autocomplete="off"
                         required
                     >
                 </div>
-                <button type="submit" class="btn btn-primary" id="shorten-btn">
+                <button type="submit" class="inline-flex items-center justify-center gap-1.5 py-[0.7rem] px-[1.4rem] font-sans text-[0.9rem] font-semibold border-none rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-gradient-accent text-white shadow-brand-sm hover:-translate-y-px hover:shadow-brand-md hover:brightness-[1.08] active:translate-y-0" id="shorten-btn">
                     <span class="btn-text">Shorten</span>
                     <span class="btn-loader" hidden>
-                        <span class="spinner"></span>
+                        <span class="inline-block w-[18px] h-[18px] border-2 border-white/30 border-t-white rounded-full animate-spin-fast"></span>
                     </span>
                 </button>
             </div>
 
             <!-- Options Row -->
-            <div class="options-row" id="options-row">
+            <div class="flex gap-4 flex-wrap max-sm:flex-col" id="options-row">
                 <!-- Custom Code -->
-                <div class="option-group">
-                    <label for="custom-code-input" class="option-label">Custom alias (optional)</label>
-                    <div class="custom-code-wrapper">
-                        <span class="code-prefix">yoursite.com/</span>
+                <div class="flex-1 min-w-[180px] max-sm:min-w-full">
+                    <label for="custom-code-input" class="block text-xs font-semibold text-brand-text-secondary uppercase tracking-wider mb-1.5">Custom alias (optional)</label>
+                    <div class="flex items-center bg-brand-bg-input border border-brand-border-default rounded-[12px] transition-all duration-150 focus-within:border-brand-border-focus focus-within:ring-3 focus-within:ring-brand-accent-soft overflow-hidden">
+                        <span class="py-[0.7rem] pl-3.5 pr-0 text-[0.82rem] text-brand-text-tertiary whitespace-nowrap font-mono select-none">yoursite.com/</span>
                         <input
                             type="text"
                             id="custom-code-input"
                             name="custom_code"
-                            class="input-field input-small"
+                            class="w-full py-[0.7rem] px-4 bg-transparent border-none rounded-[12px] text-brand-text-primary font-sans text-[0.88rem] transition-all duration-150 outline-none placeholder-brand-text-tertiary focus:ring-0 pl-1"
                             placeholder="my-link"
                             maxlength="30"
                         >
@@ -58,9 +58,9 @@
                 </div>
 
                 <!-- Expiry -->
-                <div class="option-group">
-                    <label for="expiry-select" class="option-label">Link expires in</label>
-                    <select id="expiry-select" name="expiry" class="input-field input-select">
+                <div class="flex-1 min-w-[180px] max-sm:min-w-full">
+                    <label for="expiry-select" class="block text-xs font-semibold text-brand-text-secondary uppercase tracking-wider mb-1.5">Link expires in</label>
+                    <select id="expiry-select" name="expiry" class="w-full py-[0.7rem] px-4 bg-brand-bg-input border border-brand-border-default rounded-[12px] text-brand-text-primary font-sans text-[0.95rem] transition-all duration-150 outline-none placeholder-brand-text-tertiary focus:bg-brand-bg-input-focus focus:border-brand-border-focus focus:ring-3 focus:ring-brand-accent-soft cursor-pointer appearance-none pr-9 bg-[right_0.75rem_center] bg-no-repeat bg-[url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239a9489' d='M6 8L1 3h10z'/%3E%3C/svg%3E&quot;)]">
                         <option value="never">Never</option>
                         <option value="1h">1 hour</option>
                         <option value="24h">24 hours</option>
@@ -72,55 +72,55 @@
                 </div>
 
                 <!-- Custom Date (hidden by default) -->
-                <div class="option-group custom-date-group" id="custom-date-group" hidden>
-                    <label for="custom-expiry-input" class="option-label">Expires on</label>
+                <div class="flex-1 min-w-[180px] max-sm:min-w-full" id="custom-date-group" hidden>
+                    <label for="custom-expiry-input" class="block text-xs font-semibold text-brand-text-secondary uppercase tracking-wider mb-1.5">Expires on</label>
                     <input
                         type="datetime-local"
                         id="custom-expiry-input"
                         name="custom_expiry"
-                        class="input-field input-small"
+                        class="w-full py-[0.7rem] px-4 bg-brand-bg-input border border-brand-border-default rounded-[12px] text-brand-text-primary font-sans text-[0.88rem] transition-all duration-150 outline-none focus:bg-brand-bg-input-focus focus:border-brand-border-focus focus:ring-3 focus:ring-brand-accent-soft"
                     >
                 </div>
             </div>
         </form>
 
         <!-- Error Message -->
-        <div class="message message-error" id="error-message" hidden>
-            <span class="message-icon">✕</span>
-            <span class="message-text" id="error-text"></span>
+        <div class="flex items-center gap-2.5 p-3 rounded-[12px] text-[0.88rem] font-medium mt-4 bg-brand-error-soft text-brand-error animate-fade-in-up" id="error-message" hidden>
+            <span class="font-bold">✕</span>
+            <span id="error-text"></span>
         </div>
     </div>
 
     <!-- Result Card (appears after shortening) -->
-    <div class="result-card" id="result-card" hidden>
-        <div class="result-header">
-            <span class="result-badge">✓ Link created</span>
-            <span class="result-expiry" id="result-expiry"></span>
+    <div class="bg-brand-bg-card backdrop-blur-md border border-brand-border-subtle rounded-[18px] py-6 px-7 mt-5 shadow-brand-md shadow-brand-glow animate-slide-up transition-all duration-400" id="result-card" hidden>
+        <div class="flex items-center justify-between mb-4">
+            <span class="inline-flex items-center gap-1.5 py-1 px-3 bg-brand-success-soft text-brand-success rounded-sm text-xs font-semibold">✓ Link created</span>
+            <span class="text-xs text-brand-text-tertiary" id="result-expiry"></span>
         </div>
-        <div class="result-body">
-            <div class="result-url-group">
+        <div class="mb-4">
+            <div class="flex gap-2 items-center mb-2.5 max-sm:flex-col">
                 <input
                     type="text"
-                    class="result-url"
+                    class="flex-1 py-[0.65rem] px-3.5 bg-brand-bg-input border border-brand-border-default rounded-[12px] text-brand-accent font-mono text-[0.92rem] font-medium outline-none cursor-text max-sm:text-xs max-sm:w-full"
                     id="result-url"
                     readonly
                 >
-                <button class="btn btn-copy" id="copy-btn" data-tooltip="Copy">
+                <button class="inline-flex items-center gap-1.5 py-2.5 px-4 bg-brand-accent-soft text-brand-accent border border-transparent rounded-[12px] font-sans text-sm font-semibold cursor-pointer transition-all duration-150 whitespace-nowrap hover:bg-brand-accent hover:text-white btn-copy" id="copy-btn" data-tooltip="Copy">
                     <span class="copy-icon" id="copy-icon">⧉</span>
                     <span class="copy-text" id="copy-text">Copy</span>
                 </button>
             </div>
-            <p class="result-original" id="result-original"></p>
+            <p class="text-[0.82rem] text-brand-text-tertiary overflow-hidden text-ellipsis whitespace-nowrap" id="result-original"></p>
         </div>
-        <button class="btn btn-ghost" id="shorten-another-btn">Shorten another</button>
+        <button class="inline-flex items-center justify-center gap-1.5 py-[0.7rem] px-[1.4rem] font-sans text-[0.9rem] font-semibold rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-transparent text-brand-text-secondary border border-brand-border-default hover:bg-brand-accent-soft hover:text-brand-text-primary hover:border-brand-accent" id="shorten-another-btn">Shorten another</button>
     </div>
 </section>
 
 <!-- Recent Links -->
-<section class="recent-section" id="recent-section">
-    <h2 class="section-title">Recent links</h2>
-    <div class="recent-list" id="recent-list">
-        <p class="empty-state" id="empty-state">No links shortened yet. Try one above!</p>
+<section class="max-w-[700px] mx-auto py-8 px-6 pb-16" id="recent-section">
+    <h2 class="text-lg font-semibold text-brand-text-secondary mb-4 tracking-tight">Recent links</h2>
+    <div class="flex flex-col gap-2" id="recent-list">
+        <p class="text-center py-8 text-brand-text-tertiary text-sm" id="empty-state">No links shortened yet. Try one above!</p>
     </div>
 </section>
 {% endblock %}

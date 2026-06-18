@@ -1,0 +1,292 @@
+@import "tailwindcss";
+@source "templates/**/*.html";
+@source "static/js/**/*.js";
+
+/* --------------------------------------------------------------------------
+   Design Tokens (Light/Dark themes mapped to CSS custom variables)
+   -------------------------------------------------------------------------- */
+
+:root, [data-theme="dark"] {
+    --bg-primary: #111110;
+    --bg-secondary: #1a1a18;
+    --bg-tertiary: #222220;
+    --bg-card: rgba(30, 30, 27, 0.7);
+    --bg-card-hover: rgba(38, 38, 34, 0.85);
+    --bg-input: #1e1e1c;
+    --bg-input-focus: #252523;
+
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-focus: #c8956c;
+
+    --text-primary: #ece8e1;
+    --text-secondary: #9a9489;
+    --text-tertiary: #6b665e;
+    --text-inverse: #111110;
+
+    --accent: #c8956c;
+    --accent-hover: #d4a57e;
+    --accent-soft: rgba(200, 149, 108, 0.12);
+    --accent-glow: rgba(200, 149, 108, 0.2);
+    --gradient-accent: linear-gradient(135deg, #c8956c, #d4785a);
+
+    --success: #7ab97a;
+    --success-soft: rgba(122, 185, 122, 0.12);
+    --error: #d47272;
+    --error-soft: rgba(212, 114, 114, 0.12);
+    --warning: #d4a854;
+    --warning-soft: rgba(212, 168, 84, 0.12);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 30px rgba(200, 149, 108, 0.08);
+
+    --backdrop-blur: blur(20px) saturate(1.4);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f6f4f0;
+    --bg-secondary: #edeae4;
+    --bg-tertiary: #e4e1da;
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --bg-card-hover: rgba(255, 255, 255, 0.9);
+    --bg-input: #ffffff;
+    --bg-input-focus: #ffffff;
+
+    --border-subtle: rgba(0, 0, 0, 0.05);
+    --border-default: rgba(0, 0, 0, 0.1);
+    --border-focus: #a06d42;
+
+    --text-primary: #1c1b18;
+    --text-secondary: #6b665e;
+    --text-tertiary: #9a9489;
+    --text-inverse: #f6f4f0;
+
+    --accent: #a06d42;
+    --accent-hover: #8b5c35;
+    --accent-soft: rgba(160, 109, 66, 0.1);
+    --accent-glow: rgba(160, 109, 66, 0.12);
+    --gradient-accent: linear-gradient(135deg, #a06d42, #b85e3a);
+
+    --success: #4a8c4a;
+    --success-soft: rgba(74, 140, 74, 0.1);
+    --error: #c44d4d;
+    --error-soft: rgba(196, 77, 77, 0.1);
+    --warning: #b8882a;
+    --warning-soft: rgba(184, 136, 42, 0.1);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 30px rgba(160, 109, 66, 0.06);
+
+    --backdrop-blur: blur(20px) saturate(1.2);
+}
+
+/* --------------------------------------------------------------------------
+   Tailwind v4 Theme Definitions
+   -------------------------------------------------------------------------- */
+
+@theme {
+    --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+
+    /* Theme colors mapped to custom properties */
+    --color-brand-bg-primary: var(--bg-primary);
+    --color-brand-bg-secondary: var(--bg-secondary);
+    --color-brand-bg-tertiary: var(--bg-tertiary);
+    --color-brand-bg-card: var(--bg-card);
+    --color-brand-bg-card-hover: var(--color-brand-bg-card-hover);
+    --color-brand-bg-input: var(--bg-input);
+    --color-brand-bg-input-focus: var(--bg-input-focus);
+
+    --color-brand-border-subtle: var(--border-subtle);
+    --color-brand-border-default: var(--border-default);
+    --color-brand-border-focus: var(--border-focus);
+
+    --color-brand-text-primary: var(--text-primary);
+    --color-brand-text-secondary: var(--text-secondary);
+    --color-brand-text-tertiary: var(--text-tertiary);
+    --color-brand-text-inverse: var(--text-inverse);
+
+    --color-brand-accent: var(--accent);
+    --color-brand-accent-hover: var(--accent-hover);
+    --color-brand-accent-soft: var(--accent-soft);
+    --color-brand-accent-glow: var(--accent-glow);
+
+    --color-brand-success: var(--success);
+    --color-brand-success-soft: var(--success-soft);
+    --color-brand-error: var(--error);
+    --color-brand-error-soft: var(--error-soft);
+    --color-brand-warning: var(--warning);
+    --color-brand-warning-soft: var(--warning-soft);
+
+    --shadow-brand-sm: var(--shadow-sm);
+    --shadow-brand-md: var(--shadow-md);
+    --shadow-brand-lg: var(--shadow-lg);
+    --shadow-brand-glow: var(--shadow-glow);
+
+    /* Animation transition values */
+    --animate-spin-fast: spin 0.6s linear infinite;
+    --animate-fade-in-up: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-slide-up: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --------------------------------------------------------------------------
+   Custom CSS Keyframes & Specialized Classes
+   -------------------------------------------------------------------------- */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom transitions and properties not easily doable with standard utilities */
+body {
+    transition: background 400ms cubic-bezier(0.16, 1, 0.3, 1), color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::selection {
+    background: var(--accent-soft);
+    color: var(--text-primary);
+}
+
+/* Custom 404 page animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-12px) rotate(-3deg); }
+    75% { transform: translateY(8px) rotate(3deg); }
+}
+
+@keyframes particle-burst {
+    0% {
+        opacity: 0;
+        transform: scale(0) translate(0, 0);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5) translate(
+            calc((var(--dx, 1)) * 40px),
+            calc((var(--dy, 1)) * 40px)
+        );
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.particle-system {
+    position: absolute;
+    inset: 0;
+}
+
+.particle-item {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    animation: particle-burst 2.5s ease-out infinite;
+}
+
+.particle-item:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; --dx: -1; --dy: -1; }
+.particle-item:nth-child(2) { top: 15%; left: 60%; animation-delay: 0.3s; --dx: 1; --dy: -1.5; }
+.particle-item:nth-child(3) { top: 50%; left: 80%; animation-delay: 0.6s; --dx: 1.5; --dy: 0.5; }
+.particle-item:nth-child(4) { top: 70%; left: 30%; animation-delay: 0.9s; --dx: -0.5; --dy: 1; }
+.particle-item:nth-child(5) { top: 40%; left: 50%; animation-delay: 1.2s; --dx: 0; --dy: -1; }
+.particle-item:nth-child(6) { top: 60%; left: 70%; animation-delay: 0.2s; --dx: 1; --dy: 1; }
+.particle-item:nth-child(7) { top: 25%; left: 40%; animation-delay: 0.7s; --dx: -1.5; --dy: 0; }
+.particle-item:nth-child(8) { top: 75%; left: 55%; animation-delay: 1.0s; --dx: 0.5; --dy: 1.5; }
+
+/* --------------------------------------------------------------------------
+   Theme Toggle Icons Transitions
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] .theme-icon.sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .theme-icon.moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+}
+
+[data-theme="light"] .theme-icon.sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+}
+
+[data-theme="light"] .theme-icon.moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* Custom Gradient Accent Utility */
+.bg-gradient-accent {
+    background: var(--gradient-accent);
+}
+
+/* Copy Feedback Styles */
+.btn-copy.copied {
+    background: var(--success-soft) !important;
+    color: var(--success) !important;
+    border-color: transparent !important;
+}
+
+.btn-copy-sm.copied {
+    background: var(--success-soft) !important;
+    color: var(--success) !important;
+}
+
+/* Text Clipping Gradients Compatibility */
+.hero-highlight {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+
+

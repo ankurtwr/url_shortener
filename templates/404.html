@@ -7,159 +7,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        .error-page {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .error-animation {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin-bottom: 2rem;
-        }
-
-        .broken-link {
-            font-size: 5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .error-particles {
-            position: absolute;
-            inset: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-            opacity: 0;
-            animation: particle-burst 2.5s ease-out infinite;
-        }
-
-        .particle:nth-child(1) { top: 30%; left: 20%; animation-delay: 0s; }
-        .particle:nth-child(2) { top: 15%; left: 60%; animation-delay: 0.3s; }
-        .particle:nth-child(3) { top: 50%; left: 80%; animation-delay: 0.6s; }
-        .particle:nth-child(4) { top: 70%; left: 30%; animation-delay: 0.9s; }
-        .particle:nth-child(5) { top: 40%; left: 50%; animation-delay: 1.2s; }
-        .particle:nth-child(6) { top: 60%; left: 70%; animation-delay: 0.2s; }
-        .particle:nth-child(7) { top: 25%; left: 40%; animation-delay: 0.7s; }
-        .particle:nth-child(8) { top: 75%; left: 55%; animation-delay: 1.0s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-12px) rotate(-3deg); }
-            75% { transform: translateY(8px) rotate(3deg); }
-        }
-
-        @keyframes particle-burst {
-            0% {
-                opacity: 0;
-                transform: scale(0) translate(0, 0);
-            }
-            20% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.5) translate(
-                    calc((var(--dx, 1)) * 40px),
-                    calc((var(--dy, 1)) * 40px)
-                );
-            }
-        }
-
-        .particle:nth-child(1) { --dx: -1; --dy: -1; }
-        .particle:nth-child(2) { --dx: 1; --dy: -1.5; }
-        .particle:nth-child(3) { --dx: 1.5; --dy: 0.5; }
-        .particle:nth-child(4) { --dx: -0.5; --dy: 1; }
-        .particle:nth-child(5) { --dx: 0; --dy: -1; }
-        .particle:nth-child(6) { --dx: 1; --dy: 1; }
-        .particle:nth-child(7) { --dx: -1.5; --dy: 0; }
-        .particle:nth-child(8) { --dx: 0.5; --dy: 1.5; }
-
-        .error-code {
-            font-size: 6rem;
-            font-weight: 700;
-            line-height: 1;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .error-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            animation: fadeInUp 0.6s ease-out 0.1s both;
-        }
-
-        .error-message {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 400px;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-        }
-
-        .error-actions {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 0.6s ease-out 0.3s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=1.0.2">
 </head>
-<body>
-    <div class="error-page" id="error-page">
-        <div class="error-animation">
-            <div class="broken-link">🔗</div>
-            <div class="error-particles">
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
+<body class="bg-brand-bg-primary text-brand-text-primary font-sans leading-relaxed min-h-screen flex flex-col transition-colors duration-400">
+    <div class="min-h-screen flex items-center justify-center flex-col text-center p-8" id="error-page">
+        <div class="relative w-[200px] h-[200px] mb-8">
+            <div class="text-[5rem] animate-float">🔗</div>
+            <div class="particle-system">
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
+                <div class="particle-item"></div>
             </div>
         </div>
 
-        <div class="error-code">404</div>
-        <h1 class="error-title">Link not found</h1>
-        <p class="error-message">
+        <div class="error-code mb-2 animate-fade-in-up">404</div>
+        <h1 class="text-2xl font-semibold text-brand-text-primary mb-3 animate-fade-in-up [animation-delay:0.1s] [animation-fill-mode:both]">Link not found</h1>
+        <p class="text-[1.05rem] text-brand-text-secondary max-w-[400px] mb-8 leading-relaxed animate-fade-in-up [animation-delay:0.2s] [animation-fill-mode:both]">
             {{ message | default("The short link you're looking for doesn't exist or may have been removed.") }}
         </p>
 
-        <div class="error-actions">
-            <a href="/" class="btn btn-primary" id="error-home-btn">Go Home</a>
-            <a href="/dashboard" class="btn btn-ghost" id="error-dashboard-btn">Dashboard</a>
+        <div class="flex gap-4 animate-fade-in-up [animation-delay:0.3s] [animation-fill-mode:both]">
+            <a href="/" class="inline-flex items-center justify-center gap-1.5 py-[0.7rem] px-[1.4rem] font-sans text-[0.9rem] font-semibold rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-gradient-accent text-white shadow-brand-sm hover:-translate-y-px hover:shadow-brand-md hover:brightness-[1.08] active:translate-y-0" id="error-home-btn">Go Home</a>
+            <a href="/dashboard" class="inline-flex items-center justify-center gap-1.5 py-[0.7rem] px-[1.4rem] font-sans text-[0.9rem] font-semibold rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-transparent text-brand-text-secondary border border-brand-border-default hover:bg-brand-accent-soft hover:text-brand-text-primary hover:border-brand-accent" id="error-dashboard-btn">Dashboard</a>
         </div>
     </div>
 

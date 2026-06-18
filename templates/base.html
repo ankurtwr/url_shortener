@@ -13,43 +13,43 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=1.0.2">
 
     {% block head %}{% endblock %}
 </head>
-<body>
+<body class="bg-brand-bg-primary text-brand-text-primary font-sans leading-relaxed min-h-screen flex flex-col transition-colors duration-400">
     <!-- Navigation -->
-    <nav class="navbar" id="main-nav">
-        <div class="nav-container">
-            <a href="{{ url_for('main.index') }}" class="nav-logo" id="nav-logo">
-                <span class="logo-icon">✂</span>
-                <span class="logo-text">snip</span>
+    <nav class="sticky top-0 z-[100] bg-brand-bg-card backdrop-blur-md border-b border-brand-border-subtle transition-colors duration-400" id="main-nav">
+        <div class="max-w-[960px] mx-auto px-6 h-[60px] flex items-center justify-between">
+            <a href="{{ url_for('main.index') }}" class="flex items-center gap-2 text-brand-text-primary hover:opacity-80 transition-opacity duration-150" id="nav-logo">
+                <span class="text-xl">✂</span>
+                <span class="text-2xl font-bold tracking-tight">snip</span>
             </a>
 
-            <div class="nav-links">
-                <a href="{{ url_for('main.index') }}" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" id="nav-home">
+            <div class="flex items-center gap-1">
+                <a href="{{ url_for('main.index') }}" class="px-3.5 py-2 rounded-sm text-sm font-medium transition-all duration-150 {% if request.endpoint == 'main.index' %}text-brand-accent bg-brand-accent-soft{% else %}text-brand-text-secondary hover:text-brand-text-primary hover:bg-brand-accent-soft{% endif %}" id="nav-home">
                     Home
                 </a>
-                <a href="{{ url_for('main.dashboard') }}" class="nav-link {% if request.endpoint == 'main.dashboard' %}active{% endif %}" id="nav-dashboard">
+                <a href="{{ url_for('main.dashboard') }}" class="px-3.5 py-2 rounded-sm text-sm font-medium transition-all duration-150 {% if request.endpoint == 'main.dashboard' %}text-brand-accent bg-brand-accent-soft{% else %}text-brand-text-secondary hover:text-brand-text-primary hover:bg-brand-accent-soft{% endif %}" id="nav-dashboard">
                     Dashboard
                 </a>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon sun">☀</span>
-                    <span class="theme-icon moon">☾</span>
+                <button class="flex items-center justify-center w-[38px] h-[38px] border border-brand-border-subtle rounded-sm bg-transparent cursor-pointer transition-all duration-150 ml-2 relative overflow-hidden hover:bg-brand-accent-soft hover:border-brand-border-default" id="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon sun absolute text-[1.1rem] transition-all duration-250">☀</span>
+                    <span class="theme-icon moon absolute text-[1.1rem] transition-all duration-250">☾</span>
                 </button>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="w-full flex-grow">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <p class="footer-text">Built with care. Shorten smarter.</p>
+    <footer class="border-t border-brand-border-subtle p-6 text-center transition-colors duration-400">
+        <div class="max-w-[960px] mx-auto">
+            <p class="text-xs text-brand-text-tertiary">Built with care. Shorten smarter.</p>
         </div>
     </footer>
 

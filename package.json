@@ -1,0 +1,25 @@
+{
+  "name": "url_shortner",
+  "version": "1.0.0",
+  "description": "A fast, minimal URL shortener built with **Flask** and **MySQL**. Create short links instantly with custom aliases, expiration control, and a clean analytics dashboard.",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./static/css/input.css -o ./static/css/style.css",
+    "watch:css": "npx tailwindcss -i ./static/css/input.css -o ./static/css/style.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankurtwr/url_shortener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankurtwr/url_shortener/issues"
+  },
+  "homepage": "https://github.com/ankurtwr/url_shortener#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.1",
+    "tailwindcss": "^4.3.1"
+  }
+}

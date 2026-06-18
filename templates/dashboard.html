@@ -2,81 +2,81 @@
 {% block title %}Dashboard — Snip{% endblock %}
 
 {% block content %}
-<section class="dashboard-section" id="dashboard-section">
-    <div class="dashboard-header">
+<section class="max-w-[960px] mx-auto py-10 px-6 pb-16" id="dashboard-section">
+    <div class="flex items-start justify-between mb-8 gap-6 flex-wrap max-sm:flex-col">
         <div>
-            <h1 class="page-title" id="dashboard-title">Dashboard</h1>
-            <p class="page-subtitle">All your shortened links and their stats.</p>
+            <h1 class="text-3xl font-bold tracking-tight mb-1" id="dashboard-title">Dashboard</h1>
+            <p class="text-[0.95rem] text-brand-text-secondary">All your shortened links and their stats.</p>
         </div>
-        <div class="dashboard-stats" id="dashboard-stats">
-            <div class="stat-card">
-                <span class="stat-value" id="stat-total">{{ urls.total if urls else 0 }}</span>
-                <span class="stat-label">Total Links</span>
+        <div class="flex gap-3 max-sm:w-full" id="dashboard-stats">
+            <div class="bg-brand-bg-card backdrop-blur-md border border-brand-border-subtle rounded-[12px] py-3.5 px-5 text-center min-w-[110px] transition-all duration-150 hover:border-brand-border-default hover:shadow-brand-sm max-sm:flex-1">
+                <span class="block text-2xl font-bold text-brand-accent leading-none mb-1" id="stat-total">{{ urls.total if urls else 0 }}</span>
+                <span class="text-[0.72rem] font-semibold uppercase tracking-wider text-brand-text-tertiary">Total Links</span>
             </div>
-            <div class="stat-card">
-                <span class="stat-value" id="stat-clicks">
+            <div class="bg-brand-bg-card backdrop-blur-md border border-brand-border-subtle rounded-[12px] py-3.5 px-5 text-center min-w-[110px] transition-all duration-150 hover:border-brand-border-default hover:shadow-brand-sm max-sm:flex-1">
+                <span class="block text-2xl font-bold text-brand-accent leading-none mb-1" id="stat-clicks">
                     {% set total_clicks = urls.items | sum(attribute='click_count') if urls and urls.items else 0 %}
                     {{ total_clicks }}
                 </span>
-                <span class="stat-label">Total Clicks</span>
+                <span class="text-[0.72rem] font-semibold uppercase tracking-wider text-brand-text-tertiary">Total Clicks</span>
             </div>
         </div>
     </div>
 
     {% if urls and urls.items %}
-    <div class="table-wrapper" id="urls-table-wrapper">
-        <table class="data-table" id="urls-table">
+    <div class="overflow-x-auto border border-brand-border-subtle rounded-[18px] bg-brand-bg-card backdrop-blur-md" id="urls-table-wrapper">
+        <table class="w-full border-collapse text-[0.88rem] max-sm:text-xs" id="urls-table">
             <thead>
                 <tr>
-                    <th>Short Link</th>
-                    <th>Original URL</th>
-                    <th>Clicks</th>
-                    <th>Created</th>
-                    <th>Expires</th>
-                    <th>Status</th>
-                    <th></th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5">Short Link</th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5">Original URL</th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5">Clicks</th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5">Created</th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5">Expires</th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5">Status</th>
+                    <th class="py-3.5 px-4 text-left text-[0.72rem] font-bold uppercase tracking-wider text-brand-text-tertiary border-b border-brand-border-subtle whitespace-nowrap max-sm:py-2.5 max-sm:px-2.5"></th>
                 </tr>
             </thead>
             <tbody id="urls-table-body">
                 {% for url in urls.items %}
-                <tr class="table-row {% if url.is_expired %}row-expired{% endif %}" id="url-row-{{ url.id }}">
-                    <td class="cell-short-link">
-                        <div class="short-link-group">
-                            <a href="/{{ url.short_code }}" class="short-link" target="_blank" id="link-{{ url.id }}">
+                <tr class="group transition-colors duration-150 hover:bg-brand-bg-card-hover {% if url.is_expired %}opacity-50{% endif %}" id="url-row-{{ url.id }}">
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0">
+                        <div class="flex items-center gap-1.5">
+                            <a href="/{{ url.short_code }}" class="font-mono text-[0.85rem] font-medium text-brand-accent hover:underline" target="_blank" id="link-{{ url.id }}">
                                 /{{ url.short_code }}
                             </a>
                             {% if url.is_custom %}
-                            <span class="badge badge-custom">custom</span>
+                            <span class="inline-block py-0.5 px-2 text-[0.68rem] font-bold uppercase tracking-wide rounded-full bg-brand-accent-soft text-brand-accent">custom</span>
                             {% endif %}
                         </div>
                     </td>
-                    <td class="cell-original">
-                        <span class="original-url" title="{{ url.original_url }}">
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0">
+                        <span class="text-[0.82rem] max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap block" title="{{ url.original_url }}">
                             {{ url.original_url[:60] }}{% if url.original_url|length > 60 %}...{% endif %}
                         </span>
                     </td>
-                    <td class="cell-clicks">
-                        <span class="click-count">{{ url.click_count }}</span>
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0">
+                        <span class="font-semibold font-mono text-brand-text-primary">{{ url.click_count }}</span>
                     </td>
-                    <td class="cell-date">
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0 whitespace-nowrap text-[0.82rem]">
                         {{ url.created_at.strftime('%b %d, %Y') if url.created_at else '—' }}
                     </td>
-                    <td class="cell-date">
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0 whitespace-nowrap text-[0.82rem]">
                         {% if url.expires_at %}
                             {{ url.expires_at.strftime('%b %d, %Y') }}
                         {% else %}
-                            <span class="text-muted">Never</span>
+                            <span class="text-brand-text-tertiary">Never</span>
                         {% endif %}
                     </td>
-                    <td class="cell-status">
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0">
                         {% if url.is_expired %}
-                            <span class="badge badge-expired">Expired</span>
+                            <span class="inline-block py-0.5 px-2 text-[0.68rem] font-bold uppercase tracking-wide rounded-full bg-brand-error-soft text-brand-error">Expired</span>
                         {% else %}
-                            <span class="badge badge-active">Active</span>
+                            <span class="inline-block py-0.5 px-2 text-[0.68rem] font-bold uppercase tracking-wide rounded-full bg-brand-success-soft text-brand-success">Active</span>
                         {% endif %}
                     </td>
-                    <td class="cell-actions">
-                        <button class="btn-icon btn-delete" data-id="{{ url.id }}" title="Delete" id="delete-{{ url.id }}">
+                    <td class="py-3.5 px-4 border-b border-brand-border-subtle text-brand-text-secondary align-middle max-sm:py-2.5 max-sm:px-2.5 group-last:border-b-0">
+                        <button class="inline-flex items-center justify-center w-[30px] h-[30px] rounded-sm bg-transparent text-brand-text-tertiary cursor-pointer text-[0.82rem] transition-all duration-150 hover:bg-brand-error-soft hover:text-brand-error" data-id="{{ url.id }}" title="Delete" id="delete-{{ url.id }}">
                             ✕
                         </button>
                     </td>
@@ -88,25 +88,25 @@
 
     <!-- Pagination -->
     {% if urls.pages > 1 %}
-    <div class="pagination" id="pagination">
+    <div class="flex items-center justify-center gap-4 py-6" id="pagination">
         {% if urls.has_prev %}
-        <a href="{{ url_for('main.dashboard', page=urls.prev_num) }}" class="btn btn-ghost btn-sm" id="prev-page">← Previous</a>
+        <a href="{{ url_for('main.dashboard', page=urls.prev_num) }}" class="inline-flex items-center justify-center gap-1.5 py-1.5 px-3.5 text-[0.82rem] font-sans font-semibold rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-transparent text-brand-text-secondary border border-brand-border-default hover:bg-brand-accent-soft hover:text-brand-text-primary hover:border-brand-accent" id="prev-page">← Previous</a>
         {% endif %}
 
-        <span class="page-info">Page {{ urls.page }} of {{ urls.pages }}</span>
+        <span class="text-[0.85rem] text-brand-text-tertiary">Page {{ urls.page }} of {{ urls.pages }}</span>
 
         {% if urls.has_next %}
-        <a href="{{ url_for('main.dashboard', page=urls.next_num) }}" class="btn btn-ghost btn-sm" id="next-page">Next →</a>
+        <a href="{{ url_for('main.dashboard', page=urls.next_num) }}" class="inline-flex items-center justify-center gap-1.5 py-1.5 px-3.5 text-[0.82rem] font-sans font-semibold rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-transparent text-brand-text-secondary border border-brand-border-default hover:bg-brand-accent-soft hover:text-brand-text-primary hover:border-brand-accent" id="next-page">Next →</a>
         {% endif %}
     </div>
     {% endif %}
 
     {% else %}
-    <div class="empty-dashboard" id="empty-dashboard">
-        <div class="empty-icon">🔗</div>
-        <h2>No links yet</h2>
-        <p>Head over to the home page and shorten your first URL.</p>
-        <a href="{{ url_for('main.index') }}" class="btn btn-primary" id="go-home-btn">Create a link</a>
+    <div class="text-center py-16 px-8 bg-brand-bg-card border border-brand-border-subtle rounded-[18px]" id="empty-dashboard">
+        <div class="text-5xl mb-4 opacity-50">🔗</div>
+        <h2 class="text-xl font-semibold mb-2">No links yet</h2>
+        <p class="text-brand-text-secondary mb-6">Head over to the home page and shorten your first URL.</p>
+        <a href="{{ url_for('main.index') }}" class="inline-flex items-center justify-center gap-1.5 py-[0.7rem] px-[1.4rem] font-sans text-[0.9rem] font-semibold border-none rounded-[12px] cursor-pointer transition-all duration-150 whitespace-nowrap bg-gradient-accent text-white shadow-brand-sm hover:-translate-y-px hover:shadow-brand-md hover:brightness-[1.08] active:translate-y-0" id="go-home-btn">Create a link</a>
     </div>
     {% endif %}
 </section>
